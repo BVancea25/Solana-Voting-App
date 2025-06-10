@@ -1,0 +1,130 @@
+{
+  "version": "0.1.0",
+  "name": "voting_app",
+  "instructions": [
+    {
+      "name": "initialize",
+      "accounts": [
+        {
+          "name": "voteAccount",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "user",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "labels",
+          "type": {
+            "vec": "string"
+          }
+        },
+        {
+          "name": "closeTime",
+          "type": "i64"
+        }
+      ]
+    },
+    {
+      "name": "vote",
+      "accounts": [
+        {
+          "name": "voteAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "user",
+          "isMut": false,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "choiceIndex",
+          "type": "u32"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "VoteAccount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "options",
+            "type": {
+              "vec": {
+                "defined": "OptionCount"
+              }
+            }
+          },
+          {
+            "name": "voters",
+            "type": {
+              "vec": "publicKey"
+            }
+          },
+          {
+            "name": "closeTime",
+            "type": "i64"
+          }
+        ]
+      }
+    }
+  ],
+  "types": [
+    {
+      "name": "OptionCount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "label",
+            "type": "string"
+          },
+          {
+            "name": "count",
+            "type": "u64"
+          }
+        ]
+      }
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "Overflow",
+      "msg": "Vote count overflow"
+    },
+    {
+      "code": 6001,
+      "name": "InvalidChoice",
+      "msg": "Invalid choice index"
+    },
+    {
+      "code": 6002,
+      "name": "AlreadyVoted",
+      "msg": "This wallet has already voted"
+    },
+    {
+      "code": 6003,
+      "name": "VotingClosed",
+      "msg": "The voting session has ended"
+    }
+  ],
+  "metadata": {
+    "address": "5bMC9ahzar51f1ER4eoN34JWr2NtQdsAwfECQ985Bfvb"
+  }
+}
