@@ -28,5 +28,31 @@ module.exports = function override(config) {
     resolve: { fullySpecified: false },
   });
 
+  const oneOf = config.module.rules.find((r) => Array.isArray(r.oneOf)).oneOf;
+
+  oneOf.forEach((rule) => {
+    // Target the CSS rules (both regular CSS and CSS Modules)
+    if (
+      rule.test &&
+      rule.test.toString().includes("css") &&
+      Array.isArray(rule.use)
+    ) {
+      rule.use.forEach((loader) => {
+        if (
+          loader.loader &&
+          loader.loader.includes("postcss-loader")
+        ) {
+          // Override postcssOptions to use the Tailwind v4 plugin
+          loader.options.postcssOptions = {
+            plugins: [
+              require("@tailwindcss/postcss"),
+              require("autoprefixer"),
+            ],
+          };
+        }
+      });
+    }
+  });
+
   return config;
 };

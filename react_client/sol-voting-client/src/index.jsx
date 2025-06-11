@@ -1,3 +1,4 @@
+import "./index.css";
 import React from "react";
 import App from "./App";
 import { createRoot } from "react-dom/client";
@@ -12,23 +13,22 @@ import {
 
 // Optional: default styles for the modal
 import "@solana/wallet-adapter-react-ui/styles.css";
-import { createBrowserRouter, RouterProvider, Route } from "react-router";
+import { createBrowserRouter, RouterProvider} from "react-router";
 import CreateSession from "./components/CreateSession";
 import OngoingSessions from "./components/OngoingSessions";
 
-const SOLANA_NETWORK = "devnet"; // or "mainnet-beta", "testnet"
+const SOLANA_NETWORK = "devnet"; 
 const RPC_ENDPOINT   = `https://api.${SOLANA_NETWORK}.solana.com`;
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <CreateSession />,
+    element: <App />,        
+    children: [
+      { index: true, element: <CreateSession /> },
+      { path: "sessions", element: <OngoingSessions /> },
+    ],
   },
-  {
-    path: "/sessions",
-    element: <OngoingSessions />,
-  },
-  // …other routes
 ]);
 
 const wallets = [
