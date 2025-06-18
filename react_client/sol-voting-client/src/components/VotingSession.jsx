@@ -47,7 +47,7 @@ export default function VoteSession() {
         setLoading(false);
       }
     })();
-  }, [connection, wallet, sessionPubkey]);
+  }, [sessionAddress]);
 
   const onVote = async () => {
     if (choice === null) {
