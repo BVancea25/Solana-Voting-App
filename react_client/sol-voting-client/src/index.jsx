@@ -1,5 +1,6 @@
 import "./index.css";
 import React from "react";
+import { useParams } from "react-router";
 import App from "./App";
 import { createRoot } from "react-dom/client";
 // Solana / wallet‐adapter imports
@@ -16,6 +17,7 @@ import "@solana/wallet-adapter-react-ui/styles.css";
 import { createBrowserRouter, RouterProvider} from "react-router";
 import CreateSession from "./components/CreateSession";
 import OngoingSessions from "./components/OngoingSessions";
+import VoteSession from "./components/VotingSession";
 
 const SOLANA_NETWORK = "devnet"; 
 const RPC_ENDPOINT   = `https://api.${SOLANA_NETWORK}.solana.com`;
@@ -27,6 +29,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <CreateSession /> },
       { path: "sessions", element: <OngoingSessions /> },
+      { path: "vote/:sessionAddress", element: <VoteSession/> }
     ],
   },
 ]);

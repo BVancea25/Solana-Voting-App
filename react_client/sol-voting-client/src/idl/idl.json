@@ -31,8 +31,30 @@
         {
           "name": "closeTime",
           "type": "i64"
+        },
+        {
+          "name": "allowList",
+          "type": {
+            "vec": "publicKey"
+          }
         }
       ]
+    },
+    {
+      "name": "closeSession",
+      "accounts": [
+        {
+          "name": "voteAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "user",
+          "isMut": true,
+          "isSigner": true
+        }
+      ],
+      "args": []
     },
     {
       "name": "vote",
@@ -79,6 +101,12 @@
           {
             "name": "closeTime",
             "type": "i64"
+          },
+          {
+            "name": "allowList",
+            "type": {
+              "vec": "publicKey"
+            }
           }
         ]
       }
@@ -122,6 +150,21 @@
       "code": 6003,
       "name": "VotingClosed",
       "msg": "The voting session has ended"
+    },
+    {
+      "code": 6004,
+      "name": "PermissionDenied",
+      "msg": "You are not allowed to vote in this session"
+    },
+    {
+      "code": 6005,
+      "name": "MaxLabelsExceeded",
+      "msg": "Max labels exceeded"
+    },
+    {
+      "code": 6006,
+      "name": "MaxAllowExceeded",
+      "msg": "Max allow list size exceeded"
     }
   ],
   "metadata": {

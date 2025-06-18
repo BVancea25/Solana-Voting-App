@@ -1,4 +1,8 @@
 @import "tailwindcss";
 
+.wallet-adapter-button-trigger {
+    background-color: #9062fc !important;
+}
+
 body { outline: 5px solid hotpink !important; }
 
